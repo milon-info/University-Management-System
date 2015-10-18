@@ -1,0 +1,35 @@
+﻿@model IEnumerable<FinalMvcProject.Models.Course>
+@{
+    ViewBag.Title = "ViewCourseStatus";
+}
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+<h2>View Course Status</h2>
+@using (Html.BeginForm())
+{
+    <div style="text-align: center;">
+        <b>Department</b>
+        @Html.DropDownList("DepartmentId", " Select Department")
+    </div>
+}
+<p><br /></p>
+<div id="resultData">
+    @Html.Partial("~/Views/Shared/_CourseStatus.cshtml")
+</div>
+<script type="text/javascript">
+    function FillData(id) {
+        $('#resultData').load('@Url.Action("CourseStatusLoad")', { departmentId: id });
+    }
+
+    $(function () {
+        $('#DepartmentId').change(function () {
+            var id = $('#DepartmentId').val();
+            FillData(id);
+        });
+    });
+
+</script>

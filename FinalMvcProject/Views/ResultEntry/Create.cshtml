@@ -1,0 +1,68 @@
+﻿@model FinalMvcProject.Models.ResultEntry
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+<h2>Result Entry</h2>
+<h2 style="color: forestgreen">@TempData["success"]</h2>
+<h3 style="color: firebrick">@TempData["Already"]</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StudentId, "Student Reg. No.")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("StudentId", String.Empty)
+            @Html.ValidationMessageFor(model => model.StudentId)
+        </div>
+        <div id="studentInfo">
+            @Html.Partial("~/Views/Shared/_StudentInformation.cshtml")
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CourseId, "Select Course")
+        </div>
+        <div class="editor-field">
+            @Html.Partial("_FilteredCourse")
+            @Html.ValidationMessageFor(model => model.CourseId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GradeId, "Select Grade Letter")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("GradeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.GradeId)
+        </div>
+        <p>
+            <br />
+            <input type="submit" value="Save" class="btn btn-success" />
+        </p>
+    </fieldset>
+}
+
+<script type="text/javascript">
+    function FillData(id) {
+        $('#studentInfo').load('@Url.Action("StudentInfoLoad")', { studentId: id });
+        $('#CourseId').load('@Url.Action("CourseLoad")', { studentId: id });
+    }
+
+    $(function () {
+        $('#StudentId').change(function () {
+            var id = $('#StudentId').val();
+            FillData(id);
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

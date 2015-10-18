@@ -1,0 +1,36 @@
+﻿@model IEnumerable<FinalMvcProject.Models.Course>
+@{
+    ViewBag.Title = "RoomAllocationView";
+}
+
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+<h3>View Class Schedule and Room Allocation Information</h3>
+@using (Html.BeginForm())
+{
+    <div style="text-align: center;">
+        <b style="font-size: 20px;">Department</b>
+        @Html.DropDownList("DepartmentId", String.Empty)
+    </div>
+}
+<p><br /></p>
+<div id="room-data">
+    @Html.Partial("~/Views/shared/_RoomAllocationView.cshtml", Model)
+</div>
+<script type="text/javascript">
+    function FillData(id) {
+        $('#room-data').load('@Url.Action("AllocatedRoomLoad")', { departmentId: id });
+        }
+
+        $(function () {
+            $('#DepartmentId').change(function () {
+                var id = $('#DepartmentId').val();
+                FillData(id);
+            });
+        });
+
+</script>

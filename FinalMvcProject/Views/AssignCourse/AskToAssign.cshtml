@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "AskToAssign";
+}
+
+<h2>Assign confirmation </h2>
+<div><h3 style="color: firebrick">@ViewBag.Message</h3></div>
+<form action="AssignConfirmed">
+    <input type="submit" value="Assign" class="btn btn-success" />
+</form>
+<p><br /></p>
+<form action="Create">
+    <input type="submit" value="Cancel" class="btn btn-warning" />
+</form>
+

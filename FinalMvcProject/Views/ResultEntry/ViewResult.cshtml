@@ -1,0 +1,39 @@
+﻿@model IEnumerable<FinalMvcProject.Models.ResultEntry>
+@{
+    ViewBag.Title = "ViewResult";
+}
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+<h2>View Student Result</h2>
+@using (Html.BeginForm())
+{
+    <div>
+        <b>Select Student  </b>
+        @Html.DropDownList("StudentId", "Select Student")
+    </div>
+}
+<div id="studentInfo">
+    @Html.Partial("~/Views/shared/_studentInformation.cshtml")
+</div>
+<p><br /></p>
+<div id="result_Data">
+    @Html.Partial("~/Views/Shared/_ResultInformation.cshtml")
+</div>
+<script type="text/javascript">
+    function FillData(id) {
+        $('#studentInfo').load('@Url.Action("StudentInfoLoad")', { studentId: id });
+        $('#result_Data').load('@Url.Action("ResultInfoLoad")', { studentId: id });
+    }
+
+    $(function () {
+        $('#StudentId').change(function () {
+            var id = $('#StudentId').val();
+            FillData(id);
+        });
+    });
+
+</script>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FinalMvcProject.Models.Course>
+
+@if (Model != null)
+{
+    <table class="table table-bordered text-center">
+        <h3>Course Information</h3>
+        <tr>
+            <th style="text-align: center;">
+                Course code</th>
+            <th style="text-align: center;">
+                Course Name
+            </th>
+            <th style="text-align: center;">
+                Semester
+            </th>
+            <th style="text-align: center;">
+                Assigned To
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SemName)
+                </td>
+                <td>
+                    @if (item.AssignTo != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.AssignTo)
+                    }
+                    @if (item.AssignTo == null)
+                    {
+                        item.AssignTo = "Not Assigned";
+                        @Html.DisplayFor(modelItem => item.AssignTo)
+                    }
+                </td>
+
+            </tr>
+        }
+
+    </table>
+}
+<div style="color: darkgoldenrod"><h3>@ViewBag.NotAssigned</h3></div>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<FinalMvcProject.Models.EnrollCourse>
+           
+@*<p>
+
+    <input type="submit" value="Make PDF" class="btn btn-primary" />
+</p>*@
+           
+@if (Model != null)
+{
+    <table class="table table-bordered text-center">
+        <tr>
+            <th style="text-align: center;">
+                Course Code
+            </th>
+            <th style="text-align: center;">
+                Course Name
+            </th>
+            <th style="text-align: center;">
+                Grade
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.Name)
+                </td>
+                <td>
+                    @if (item.GradeName != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.GradeName)
+                    }
+                    @if (item.GradeName == null)
+                    {
+                        item.GradeName = "Empty";
+                        @Html.DisplayFor(modelItem => item.GradeName)
+                    }
+
+                </td>
+            </tr>
+        }
+    </table>
+}
+<div style="color: darkgoldenrod"><h3>@ViewBag.NotEnrolled</h3></div>
